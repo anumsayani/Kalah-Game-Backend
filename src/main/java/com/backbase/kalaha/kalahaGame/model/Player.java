@@ -1,7 +1,6 @@
 package com.backbase.kalaha.kalahaGame.model;
 
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.UUID;
@@ -11,6 +10,9 @@ public class Player {
 
     private final static int FIRST_PLAYER_PIT_STARTING_INDEX = 1;
     private final static int SECOND_PLAYER_PIT_STARTING_INDEX = 8;
+
+    private final static int FIRST_PLAYER_KALAH_ID = 7;
+    private final static int SECOND_PLAYER_KALAH_ID = 14;
 
     private final static int TOTAL_PLAYER_PITS = 6;
     private final static int STONES_PER_PIT = 6;
@@ -66,9 +68,8 @@ public class Player {
 
         //assign kalah
         //no need for position on kalah
-        kalah = new Pit(pitsEndingIndex()+1, 0);
+        kalah = new Pit(isFirstPlayer() ? FIRST_PLAYER_KALAH_ID : SECOND_PLAYER_KALAH_ID, 0);
     }
-
 
 
     public boolean isFirstPlayer() {
