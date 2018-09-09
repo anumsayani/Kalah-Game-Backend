@@ -2,6 +2,7 @@ package com.backbase.kalaha.kalahaGame.model;
 
 
 import com.backbase.kalaha.kalahaGame.enumerations.GameStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.util.Date;
@@ -15,21 +16,26 @@ public class KalahBoard {
 
     @Getter
     @Setter
+    @JsonIgnore
     private Player firstPlayer;
 
     @Getter
     @Setter
+    @JsonIgnore
     private Player secondPlayer;
 
     @Getter
+    @JsonIgnore
     private Date createdDate;
 
     @Getter
     @Setter
+    @JsonIgnore
     private GameStatus gameStatus;
 
     @Getter
     @Setter
+    @JsonIgnore
     private Player currentPlayer;
 
     @Getter

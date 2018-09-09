@@ -11,13 +11,10 @@ public class Pit {
     @Setter
     private int stones;
 
-    @Getter
-    private int position;
 
-    public Pit(int pitId, int stones, int position) {
+    public Pit(int pitId, int stones) {
         this.pitId = pitId;
         this.stones = stones;
-        this.position = position;
     }
 
     public void addStone() {

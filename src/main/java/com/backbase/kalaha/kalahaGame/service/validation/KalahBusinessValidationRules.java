@@ -1,4 +1,4 @@
-package com.backbase.kalaha.kalahaGame.engine.validation;
+package com.backbase.kalaha.kalahaGame.service.validation;
 
 import com.backbase.kalaha.kalahaGame.enumerations.GameStatus;
 import com.backbase.kalaha.kalahaGame.exception.BusinessException;

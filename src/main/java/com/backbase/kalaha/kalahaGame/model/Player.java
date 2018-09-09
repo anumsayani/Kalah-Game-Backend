@@ -57,34 +57,19 @@ public class Player {
     }
 
     private void assignPitsAndKalah() {
-        int initialPitId = 0, kalahId = 0, startingPosition = 0;
-        boolean add = true;
-        if (name.equals(name.FIRST_PLAYER)) {
-            initialPitId = 1;
-            kalahId = 7;
-            startingPosition = 1;
-        } else {
-            initialPitId = 8;
-            kalahId = 14;
-            startingPosition = 6;
-            add = false;
-        }
 
         //assign pits
-        for (int i = initialPitId; i <= TOTAL_PLAYER_PITS; i++) {
-            Pit pit = new Pit(i, STONES_PER_PIT, startingPosition);
+        for (int i = pitsStartingIndex(); i <= pitsEndingIndex(); i++) {
+            Pit pit = new Pit(i, STONES_PER_PIT);
             pits.add(pit);
-            if (add) {
-                startingPosition++;
-            } else {
-                startingPosition--;
-            }
         }
 
         //assign kalah
         //no need for position on kalah
-        kalah = new Pit(kalahId, 0, 0);
+        kalah = new Pit(pitsEndingIndex()+1, 0);
     }
+
+
 
     public boolean isFirstPlayer() {
         return name == name.FIRST_PLAYER;

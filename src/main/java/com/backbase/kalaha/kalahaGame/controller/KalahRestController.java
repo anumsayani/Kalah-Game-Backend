@@ -1,12 +1,11 @@
 package com.backbase.kalaha.kalahaGame.controller;
 
-import com.backbase.kalaha.kalahaGame.engine.KalahBoardEngineInterface;
+import com.backbase.kalaha.kalahaGame.service.KalahBoardEngineInterface;
 import com.backbase.kalaha.kalahaGame.model.KalahBoard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;

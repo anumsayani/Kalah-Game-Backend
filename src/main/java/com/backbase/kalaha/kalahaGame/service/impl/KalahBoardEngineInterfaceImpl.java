@@ -1,7 +1,7 @@
-package com.backbase.kalaha.kalahaGame.engine.impl;
+package com.backbase.kalaha.kalahaGame.service.impl;
 
-import com.backbase.kalaha.kalahaGame.engine.KalahBoardEngineInterface;
-import com.backbase.kalaha.kalahaGame.engine.validation.KalahBusinessValidationRules;
+import com.backbase.kalaha.kalahaGame.service.KalahBoardEngineInterface;
+import com.backbase.kalaha.kalahaGame.service.validation.KalahBusinessValidationRules;
 import com.backbase.kalaha.kalahaGame.enumerations.GameStatus;
 import com.backbase.kalaha.kalahaGame.exception.KalahException;
 import com.backbase.kalaha.kalahaGame.model.*;
