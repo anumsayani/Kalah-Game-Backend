@@ -34,6 +34,9 @@ public class KalahBoardEngineInterfaceImpl implements KalahBoardEngineInterface 
         kalahBoard.setFirstPlayer(firstPlayer);
         kalahBoard.setSecondPlayer(secondPlayer);
 
+        //first player will be player one
+        kalahBoard.setCurrentPlayer(firstPlayer);
+
         //save the kalah board
         boardRepository.saveKalahBoard(kalahBoard);
 
@@ -52,7 +55,7 @@ public class KalahBoardEngineInterfaceImpl implements KalahBoardEngineInterface 
         Player actingPlayer = kalahBoard.getPlayerWithTurn();
 
         //retrieve the pit from the pit ID;
-        Pit pit = actingPlayer.getPits().get(pitId);
+        Pit pit = actingPlayer.getPitById(pitId);
 
         //handle Game State on first move
         handleGameStateOnFirstMove(kalahBoard);
@@ -116,13 +119,13 @@ public class KalahBoardEngineInterfaceImpl implements KalahBoardEngineInterface 
         /*
             RULE 1: Distribute stone
          */
-        int currentPitID = distributeStones(kalahBoard, stones, pit.getPitId());
+        int adjascentPitID = pit.getPitId() + 1;
+        int currentPitID = distributeStones(kalahBoard, stones, adjascentPitID);
 
         /*
             RULE 2: Check if last stone in player Kalah
          */
-        if (!isLastStoneInKalah(currentPitID, player)) {
-            this.switchTurn(kalahBoard, player);
+        if (isLastStoneInKalah(currentPitID, player)) {
             return;
         }
 
@@ -132,6 +135,8 @@ public class KalahBoardEngineInterfaceImpl implements KalahBoardEngineInterface 
         if (isLastStoneInEmptyPit(kalahBoard, currentPitID)) {
             captureOpponentPitStones(kalahBoard, currentPitID);
         }
+
+        this.switchTurn(kalahBoard, player);
     }
 
 
@@ -142,10 +147,12 @@ public class KalahBoardEngineInterfaceImpl implements KalahBoardEngineInterface 
         /**
          * Distribute stones to following pits
          */
-        while (stones > 0 && pitsOwner.canAddStoneToNextPit(pitId)) {
-            pitId++;
+        while (stones > 0 && pitsOwner.canAddStoneToPit(pitId)) {
             pitsOwner.getPitById(pitId).addStone();
             stones--;
+            if(stones > 0){
+                pitId++;
+            }
         }
 
         /**
@@ -161,7 +168,7 @@ public class KalahBoardEngineInterfaceImpl implements KalahBoardEngineInterface 
          */
         if (stones > 0) {
             Player oppositePlayer = getOppositePlayer(kalahBoard, pitsOwner);
-            distributeStones(kalahBoard, stones, oppositePlayer.pitsStartingIndex());
+            return distributeStones(kalahBoard, stones, oppositePlayer.pitsStartingIndex());
         }
 
         return pitId;
@@ -169,8 +176,11 @@ public class KalahBoardEngineInterfaceImpl implements KalahBoardEngineInterface 
     }
 
     private boolean isLastStoneInEmptyPit(KalahBoard kalahBoard, int pitId) {
+
         Player pitOwner = getPitOwner(kalahBoard, pitId);
+        Player oppositePlayer = getOppositePlayer(kalahBoard, pitOwner);
         Pit pit = pitOwner.getPitById(pitId);
+
         return pit.getStones() == 1;
 
     }

@@ -1,8 +1,10 @@
 package com.backbase.kalaha.kalahaGame.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,10 +29,12 @@ public class Player {
     }
 
     @Getter
+    @JsonIgnore
     private String playerId;
 
     @Getter
     @Setter
+    @JsonIgnore
     private List<Pit> pits;
 
     @Getter
@@ -52,11 +56,16 @@ public class Player {
             if (pit.getPitId() == id) {
                 return pit;
             }
+
         }
+
+
         return null;
     }
 
     private void assignPitsAndKalah() {
+        //initialize pits
+        pits = new ArrayList<Pit>();
 
         //assign pits
         for (int i = pitsStartingIndex(); i <= pitsEndingIndex(); i++) {
@@ -76,7 +85,7 @@ public class Player {
     }
 
     public int addStoneToKalahAndReturnRemaining(int stones) {
-        this.pits.get(this.pits.size() - 1).addStone();
+        this.kalah.addStone();
         return --stones;
     }
 
@@ -88,7 +97,7 @@ public class Player {
         return pitsStartingIndex() + 5;
     }
 
-    public boolean canAddStoneToNextPit(int pitId) {
-        return (pitId < pitsEndingIndex()) ? true : false;
+    public boolean canAddStoneToPit(int pitId) {
+        return (pitId <= pitsEndingIndex()) ? true : false;
     }
 }

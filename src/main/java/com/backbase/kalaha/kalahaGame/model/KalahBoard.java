@@ -3,15 +3,19 @@ package com.backbase.kalaha.kalahaGame.model;
 
 import com.backbase.kalaha.kalahaGame.enumerations.GameStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.Date;
 import java.util.UUID;
 
 @EqualsAndHashCode(of = "boardId")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class KalahBoard {
 
     @Getter
+    @JsonProperty
     private String boardId;
 
     @Getter
@@ -38,17 +42,14 @@ public class KalahBoard {
     @JsonIgnore
     private Player currentPlayer;
 
-    @Getter
-    private int[] pits;
 
     public KalahBoard() {
-        this.boardId = UUID.randomUUID().toString();
+        this.boardId = String.valueOf(new Date().getTime());
         this.createdDate = new Date();
         this.gameStatus = GameStatus.GAME_CREATED;
-        this.currentPlayer = firstPlayer;
-        this.pits = new int[14];
     }
 
+    @JsonIgnore
     public Player getPlayerWithTurn() {
 
         return (currentPlayer == null || currentPlayer == firstPlayer) ? firstPlayer : secondPlayer;

@@ -14,10 +14,19 @@ public class KalahBusinessValidationRules {
             throw new BusinessException("Game is not in progress. Some one may have already won the game");
         }
 
+        if(pit == null){
+            throw new BusinessException("Please make a move from your pits");
+        }
+
+        if(pit.getPitId() == board.getCurrentPlayer().getKalah().getPitId()){
+            throw new BusinessException("You cannot move a stone from your kalah");
+        }
+
         //Are there any stones in the pit ?
         if(pit.getStones() == 0){
             throw new BusinessException("There are no stones in this pit. Please use other pits");
         }
+
     }
 
     public static boolean validateBusinessRulesForGameTermination(KalahBoard kalahBoard){
