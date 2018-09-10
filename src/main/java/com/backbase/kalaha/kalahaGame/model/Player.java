@@ -16,8 +16,7 @@ public class Player {
     private final static int FIRST_PLAYER_KALAH_ID = 7;
     private final static int SECOND_PLAYER_KALAH_ID = 14;
 
-    private final static int TOTAL_PLAYER_PITS = 6;
-    private final static int STONES_PER_PIT = 6;
+    public final static int STONES_PER_PIT = 6;
 
     public enum Name {
         FIRST_PLAYER("First Player"),
