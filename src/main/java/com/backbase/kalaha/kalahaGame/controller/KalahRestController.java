@@ -1,7 +1,7 @@
 package com.backbase.kalaha.kalahaGame.controller;
 
 import com.backbase.kalaha.kalahaGame.controller.dataTransferObject.KalahBoardDTO;
-import com.backbase.kalaha.kalahaGame.service.KalahBoardEngineInterface;
+import com.backbase.kalaha.kalahaGame.service.KalahBoardService;
 import com.backbase.kalaha.kalahaGame.model.KalahBoard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
@@ -16,12 +16,12 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class KalahRestController {
 
     @Autowired
-    private KalahBoardEngineInterface kalahGameEngine;
+    private KalahBoardService kalahGameService;
 
     @PostMapping(path="/games")
     @ResponseStatus(HttpStatus.CREATED)
     public Resource<KalahBoard> create(){
-        KalahBoard board = kalahGameEngine.createBoard();
+        KalahBoard board = kalahGameService.createBoard();
         Resource<KalahBoard> boardResource = new Resource<KalahBoard>(board);
         ControllerLinkBuilder uri = linkTo(methodOn(this.getClass()).findById(board.getBoardId()));
         boardResource.add(uri.withRel("uri")); //name mentioned in specs
@@ -30,13 +30,13 @@ public class KalahRestController {
 
     @GetMapping(path="/games/{boardId}")
     public KalahBoard findById(@PathVariable String boardId){
-        KalahBoard board = kalahGameEngine.findBoardById(boardId);
+        KalahBoard board = kalahGameService.findBoardById(boardId);
         return board;
     }
 
     @PutMapping(path="/games/{boardId}/pits/{pitId}")
     public Resource<KalahBoardDTO> move(@PathVariable String boardId, @PathVariable int pitId){
-        KalahBoard board = kalahGameEngine.move(boardId, pitId);
+        KalahBoard board = kalahGameService.move(boardId, pitId);
 
 
         KalahBoardDTO boardDto = KalahBoardDTO.createDTO(board);

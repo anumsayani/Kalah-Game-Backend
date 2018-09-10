@@ -6,6 +6,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
@@ -36,10 +37,20 @@ public class PlayerTest {
         Player firstPlayer = new Player(Player.Name.FIRST_PLAYER);
         Player secondPlayer = new Player(Player.Name.SECOND_PLAYER);
 
-        List<Pit> pits = firstPlayer.getPits();
-        pits.addAll(secondPlayer.getPits());
+        firstPlayer.getPits().stream().forEach(o -> assertThat(o.getPitId(), lessThan(7)));
+        firstPlayer.getPits().stream().forEach(o -> assertThat(o.getPitId(), greaterThan(0)));
+        secondPlayer.getPits().stream().forEach(o -> assertThat(o.getPitId(), lessThan(14)));
+        secondPlayer.getPits().stream().forEach(o -> assertThat(o.getPitId(), greaterThan(7)));
 
-        pits.stream().forEach(o -> assertThat(o.getPitId(), lessThan(14)));
+    }
+
+    @Test
+    public void assignKalahIdWithSuccess() throws Exception{
+        Player firstPlayer = new Player(Player.Name.FIRST_PLAYER);
+        Player secondPlayer = new Player(Player.Name.SECOND_PLAYER);
+
+        assertThat(firstPlayer.getKalah().getPitId(), is(7));
+        assertThat(secondPlayer.getKalah().getPitId(), is(14));
 
     }
 

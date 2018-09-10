@@ -4,7 +4,7 @@ import com.backbase.kalaha.kalahaGame.enumerations.GameStatus;
 import com.backbase.kalaha.kalahaGame.exception.KalahException;
 import com.backbase.kalaha.kalahaGame.model.*;
 import com.backbase.kalaha.kalahaGame.repository.KalahBoardRepository;
-import com.backbase.kalaha.kalahaGame.service.KalahBoardEngineInterface;
+import com.backbase.kalaha.kalahaGame.service.KalahBoardService;
 import com.backbase.kalaha.kalahaGame.service.validation.KalahBusinessValidationRules;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +16,7 @@ import static com.backbase.kalaha.kalahaGame.model.Player.Name.SECOND_PLAYER;
 
 @Service
 @Slf4j
-public class KalahBoardEngineInterfaceImpl implements KalahBoardEngineInterface {
+public class KalahBoardServiceImpl implements KalahBoardService {
 
 
     @Autowired
