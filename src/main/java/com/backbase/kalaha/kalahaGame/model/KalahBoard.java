@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.apache.tomcat.util.codec.binary.Base64;
 
+import java.nio.ByteBuffer;
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,6 +19,7 @@ public class KalahBoard {
     @Getter
     @JsonProperty
     private String boardId;
+
 
     @Getter
     @Setter
@@ -44,15 +47,24 @@ public class KalahBoard {
 
 
     public KalahBoard() {
-        this.boardId = String.valueOf(new Date().getTime());
+        this.boardId = getUniqueID();
         this.createdDate = new Date();
         this.gameStatus = GameStatus.GAME_CREATED;
     }
 
     @JsonIgnore
     public Player getPlayerWithTurn() {
-
         return (currentPlayer == null || currentPlayer == firstPlayer) ? firstPlayer : secondPlayer;
+    }
+
+    private String getUniqueID(){
+        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+        UUID uuid = UUID.randomUUID();
+        bb.putLong(uuid.getMostSignificantBits());
+        bb.putLong(uuid.getLeastSignificantBits());
+        Base64 base64 = new Base64();
+        return base64.encodeBase64URLSafeString(bb.array());
+
     }
 
 }

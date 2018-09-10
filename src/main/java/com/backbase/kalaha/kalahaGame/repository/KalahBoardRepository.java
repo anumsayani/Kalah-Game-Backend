@@ -1,4 +1,4 @@
-package com.backbase.kalaha.kalahaGame.model.repository;
+package com.backbase.kalaha.kalahaGame.repository;
 
 import com.backbase.kalaha.kalahaGame.model.KalahBoard;
 

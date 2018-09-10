@@ -1,7 +1,7 @@
-package com.backbase.kalaha.kalahaGame.model.repository.impl;
+package com.backbase.kalaha.kalahaGame.repository.impl;
 
 import com.backbase.kalaha.kalahaGame.model.KalahBoard;
-import com.backbase.kalaha.kalahaGame.model.repository.KalahBoardRepository;
+import com.backbase.kalaha.kalahaGame.repository.KalahBoardRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

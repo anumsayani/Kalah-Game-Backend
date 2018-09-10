@@ -3,7 +3,7 @@ package com.backbase.kalaha.kalahaGame.service.impl;
 import com.backbase.kalaha.kalahaGame.enumerations.GameStatus;
 import com.backbase.kalaha.kalahaGame.exception.KalahException;
 import com.backbase.kalaha.kalahaGame.model.*;
-import com.backbase.kalaha.kalahaGame.model.repository.KalahBoardRepository;
+import com.backbase.kalaha.kalahaGame.repository.KalahBoardRepository;
 import com.backbase.kalaha.kalahaGame.service.KalahBoardEngineInterface;
 import com.backbase.kalaha.kalahaGame.service.validation.KalahBusinessValidationRules;
 import lombok.extern.slf4j.Slf4j;
