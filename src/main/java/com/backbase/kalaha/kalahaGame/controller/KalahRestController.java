@@ -1,5 +1,6 @@
 package com.backbase.kalaha.kalahaGame.controller;
 
+import com.backbase.kalaha.kalahaGame.controller.dataTransferObject.GameStatusDTO;
 import com.backbase.kalaha.kalahaGame.controller.dataTransferObject.KalahBoardDTO;
 import com.backbase.kalaha.kalahaGame.service.KalahBoardService;
 import com.backbase.kalaha.kalahaGame.model.KalahBoard;
@@ -8,6 +9,8 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -39,12 +42,13 @@ public class KalahRestController {
     /**
      *
      * @param boardId
-     * @return Displays the board object boardId
+     * @return Displays the game status
      */
     @GetMapping(path="/games/{boardId}")
-    public KalahBoard findById(@PathVariable String boardId){
+    public GameStatusDTO findById(@PathVariable String boardId){
         KalahBoard board = kalahGameService.findBoardById(boardId);
-        return board;
+        return GameStatusDTO.createDTO(board);
+
     }
 
     /**

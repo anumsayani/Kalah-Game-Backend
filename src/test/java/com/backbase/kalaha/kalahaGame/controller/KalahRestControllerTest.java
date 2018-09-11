@@ -47,15 +47,28 @@ public class KalahRestControllerTest {
     @Test
     public void whenFindByBoardId_VerifyBoard() throws Exception{
         KalahBoard board = new KalahBoard();
-        String json = "{\"boardId\": \" %s \"}";
-        json = String.format(json, board.getBoardId());
+
+        board.setCurrentPlayer(new Player(Player.Name.FIRST_PLAYER));
+
+        String json = "{" +
+                "    \"boardId\": \"%s\"," +
+                "    \"gameStatus\": \"%s\"," +
+                "    \"currentPlayerName\": \"%s\"," +
+                "    \"createdDate\": \"%s\"" +
+                "}";
+        json = String.format(json, board.getBoardId()
+                            , board.getGameStatus(),
+                                board.getCurrentPlayer().getName().name(), board.getCreatedDate());
 
         Mockito.when(kalahGameService.findBoardById(board.getBoardId())).thenReturn(board);
 
         mvc.perform(get("/games/{boardId}",board.getBoardId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.boardId").value(board.getBoardId()));
+                .andExpect(jsonPath("$.boardId").value(board.getBoardId()))
+                .andExpect(jsonPath("$.gameStatus").value(board.getGameStatus().name()))
+                .andExpect(jsonPath("$.currentPlayerName")
+                        .value(board.getCurrentPlayer().getName().name()));
     }
 
     @Test
