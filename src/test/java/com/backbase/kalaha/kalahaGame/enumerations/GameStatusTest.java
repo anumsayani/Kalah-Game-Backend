@@ -18,6 +18,7 @@ public class GameStatusTest {
         assertThat(GameStatus.IN_PROGRESS.name(), is("IN_PROGRESS"));
         assertThat(GameStatus.FIRST_PLAYER_WON.name(), is("FIRST_PLAYER_WON"));
         assertThat(GameStatus.SECOND_PLAYER_WON.name(), is("SECOND_PLAYER_WON"));
+        assertThat(GameStatus.GAME_DRAW.name(), is("GAME_DRAW"));
 
     }
 

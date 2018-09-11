@@ -64,6 +64,7 @@ public class KalahBoardServiceImpl implements KalahBoardService {
 
         //if all's good, move the stones!!
         takeTurn(kalahBoard, pit, actingPlayer);
+
         //anybody won?
         boolean terminateGame = KalahBusinessValidationRules.validateBusinessRulesForGameTermination(kalahBoard);
         if (terminateGame) {
@@ -93,15 +94,22 @@ public class KalahBoardServiceImpl implements KalahBoardService {
     private void assignKalahWinner(KalahBoard kalahBoard) {
         int stones = KalahBusinessValidationRules.getTotalStones(kalahBoard.getFirstPlayer());
         if (stones > 0) {
+            stones += kalahBoard.getFirstPlayer().getKalah().getStones();
             kalahBoard.getFirstPlayer().getKalah().setStones(stones);
         } else {
             stones = KalahBusinessValidationRules.getTotalStones(kalahBoard.getSecondPlayer());
+            stones += kalahBoard.getSecondPlayer().getKalah().getStones();
             kalahBoard.getSecondPlayer().getKalah().setStones(stones);
         }
 
         //compute kalah winner
         int kalahStonesPlayer1 = kalahBoard.getFirstPlayer().getKalah().getStones();
         int kalahStonesPlayer2 = kalahBoard.getSecondPlayer().getKalah().getStones();
+
+        if(kalahStonesPlayer1 == kalahStonesPlayer2){
+            kalahBoard.setGameStatus(GameStatus.GAME_DRAW);
+            return;
+        }
 
         if (kalahStonesPlayer1 > kalahStonesPlayer2) {
             kalahBoard.setGameStatus(GameStatus.FIRST_PLAYER_WON);
@@ -147,12 +155,15 @@ public class KalahBoardServiceImpl implements KalahBoardService {
          * Distribute stones to following pits
          */
         int currentPitId = pitId;
-        while (stones > 0 && pitsOwner.canAddStoneToPit(currentPitId)) {
+        while (stones > 0 && pitsOwner.canAddStoneToPit(pitId)) {
             currentPitId = pitId;
             pitsOwner.getPitById(pitId).addStone();
             stones--;
             pitId++;
+
         }
+
+
 
         /**
          *  Should add stone in player Kalah
@@ -206,7 +217,7 @@ public class KalahBoardServiceImpl implements KalahBoardService {
         Player pitOwner = getPitOwner(kalahBoard, pitId);
         Pit pit = pitOwner.getPitById(pitId);
         int totalStone = pit.getStones() + OppositePitStones;
-        pit.setStones(totalStone);
+        pitOwner.getKalah().setStones(totalStone);
 
 
     }

@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
 public class PlayerTest {
 
     @Test
-    public void newPlayer() throws Exception {
+    public void createNewPlayerWithSuccess() throws Exception {
         Player firstPlayer = new Player(Player.Name.FIRST_PLAYER);
         Player secondPlayer = new Player(Player.Name.SECOND_PLAYER);
 
