@@ -12,6 +12,11 @@ import java.nio.ByteBuffer;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * @author afatima
+ * @desc Kalah Board Model
+ *
+ */
 @EqualsAndHashCode(of = "boardId")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class KalahBoard {
@@ -52,6 +57,10 @@ public class KalahBoard {
         this.gameStatus = GameStatus.GAME_CREATED;
     }
 
+    /**
+     *
+     * @return the current player with turn
+     */
     @JsonIgnore
     public Player getPlayerWithTurn() {
         return (currentPlayer == null || currentPlayer == firstPlayer) ? firstPlayer : secondPlayer;

@@ -12,12 +12,20 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+/**
+ * @author afatima
+ * @desc Rest API Controller for Kalah Game
+ */
 @RestController
 public class KalahRestController {
 
     @Autowired
     private KalahBoardService kalahGameService;
 
+    /**
+     *
+     * @return HATEOAS resource with boardID and Links having link to the game baord
+     */
     @PostMapping(path="/games")
     @ResponseStatus(HttpStatus.CREATED)
     public Resource<KalahBoard> create(){
@@ -28,12 +36,23 @@ public class KalahRestController {
         return boardResource;
     }
 
+    /**
+     *
+     * @param boardId
+     * @return Displays the board object boardId
+     */
     @GetMapping(path="/games/{boardId}")
     public KalahBoard findById(@PathVariable String boardId){
         KalahBoard board = kalahGameService.findBoardById(boardId);
         return board;
     }
 
+    /**
+     *
+     * @param boardId
+     * @param pitId
+     * @return returns the Board DTO after making a move on the board.
+     */
     @PutMapping(path="/games/{boardId}/pits/{pitId}")
     public Resource<KalahBoardDTO> move(@PathVariable String boardId, @PathVariable int pitId){
         KalahBoard board = kalahGameService.move(boardId, pitId);

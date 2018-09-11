@@ -1,7 +1,7 @@
 package com.backbase.kalaha.kalahaGame.exception.handler;
 
 
-import com.backbase.kalaha.kalahaGame.exception.BusinessException;
+import com.backbase.kalaha.kalahaGame.exception.KalahBusinessException;
 import com.backbase.kalaha.kalahaGame.exception.KalahException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * @author afatima
+ * Kalah Exception Handler
+ *
+ */
 @Slf4j
 @ControllerAdvice
 public class KalahExceptionHandler {
@@ -22,9 +27,9 @@ public class KalahExceptionHandler {
     private static final String APPLICATION_JSON_CHARSET_UTF_8 = "application/json; charset=utf-8";
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(BusinessException.class)
+    @ExceptionHandler(KalahBusinessException.class)
     @ResponseBody
-    public MessageError handleBusinessException(BusinessException ex) {
+    public MessageError handleBusinessException(KalahBusinessException ex) {
         log.error("Business error: {}", ExceptionUtils.getMessage(ex));
         return new MessageError(ex.getLocalizedMessage());
     }

@@ -1,5 +1,6 @@
 package com.backbase.kalaha.kalahaGame.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -7,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ *
+ * @author afatima
+ * Player of the board
+ */
 @EqualsAndHashCode(of = {"playerId"})
 public class Player {
 
@@ -64,6 +70,7 @@ public class Player {
         return null;
     }
 
+
     private void assignPitsAndKalah() {
         //initialize pits
         pits = new ArrayList<Pit>();
@@ -83,6 +90,7 @@ public class Player {
     public boolean isFirstPlayer() {
         return name == name.FIRST_PLAYER;
     }
+
 
     public int addStoneToKalahAndReturnRemaining(int stones) {
         this.kalah.addStone();

@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 
+/**
+ * @author afatima
+ * Implementation of the board repository
+ */
 @Repository
 public class KalahBoardRepositoryImpl implements KalahBoardRepository {
     private HashMap<String, KalahBoard> gameBoards = new HashMap<String, KalahBoard>();

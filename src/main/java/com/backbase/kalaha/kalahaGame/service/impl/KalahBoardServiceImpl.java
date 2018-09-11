@@ -1,7 +1,7 @@
 package com.backbase.kalaha.kalahaGame.service.impl;
 
 import com.backbase.kalaha.kalahaGame.enumerations.GameStatus;
-import com.backbase.kalaha.kalahaGame.exception.KalahException;
+import com.backbase.kalaha.kalahaGame.exception.KalahBusinessException;
 import com.backbase.kalaha.kalahaGame.model.*;
 import com.backbase.kalaha.kalahaGame.repository.KalahBoardRepository;
 import com.backbase.kalaha.kalahaGame.service.KalahBoardService;
@@ -14,6 +14,10 @@ import org.springframework.stereotype.Service;
 import static com.backbase.kalaha.kalahaGame.model.Player.Name.FIRST_PLAYER;
 import static com.backbase.kalaha.kalahaGame.model.Player.Name.SECOND_PLAYER;
 
+/**
+ * @author afatima
+ *
+ */
 @Service
 @Slf4j
 public class KalahBoardServiceImpl implements KalahBoardService {
@@ -22,7 +26,10 @@ public class KalahBoardServiceImpl implements KalahBoardService {
     @Autowired
     private KalahBoardRepository boardRepository;
 
-
+    /**
+     *
+     * @return the created board
+     */
     @Override
     public KalahBoard createBoard() {
         KalahBoard kalahBoard = new KalahBoard();
@@ -44,6 +51,12 @@ public class KalahBoardServiceImpl implements KalahBoardService {
 
     }
 
+    /**
+     *
+     * @param boardId
+     * @param pitId
+     * @return updated board state after the move has been played on the board
+     */
     @Override
     public KalahBoard move(String boardId, Integer pitId) {
 
@@ -78,7 +91,7 @@ public class KalahBoardServiceImpl implements KalahBoardService {
     @Override
     public KalahBoard findBoardById(String boardId) {
         if (StringUtils.isBlank(boardId)) {
-            throw new KalahException("Please specify a board Id to find from board repository");
+            throw new KalahBusinessException("Please specify a board Id to find from board repository");
         }
         return boardRepository.findKalahBoardByID(boardId);
     }
@@ -91,6 +104,11 @@ public class KalahBoardServiceImpl implements KalahBoardService {
         }
     }
 
+    /**
+     * Assigns winner to the Game based on kalah stones.
+     * @param kalahBoard
+     *
+     */
     private void assignKalahWinner(KalahBoard kalahBoard) {
         int stones = KalahBusinessValidationRules.getTotalStones(kalahBoard.getFirstPlayer());
         if (stones > 0) {
@@ -118,7 +136,13 @@ public class KalahBoardServiceImpl implements KalahBoardService {
         }
     }
 
-
+    /**
+     *
+     * @param kalahBoard
+     * @param pit pit from which the stones should be distributed
+     * @param player acting player
+     * Player taking the turn
+     */
     private void takeTurn(KalahBoard kalahBoard, Pit pit, Player player) {
 
         int stones = pit.removeStones();
@@ -146,7 +170,13 @@ public class KalahBoardServiceImpl implements KalahBoardService {
         this.switchTurn(kalahBoard, player);
     }
 
-
+    /**
+     *
+     * @param kalahBoard
+     * @param stones number of stones to be distributed
+     * @param pitId the pit where the stone should be moved
+     * @return currentPitId
+     */
     private int distributeStones(KalahBoard kalahBoard, int stones, int pitId) {
 
         Player pitsOwner = this.getPitOwner(kalahBoard, pitId);
@@ -207,6 +237,11 @@ public class KalahBoardServiceImpl implements KalahBoardService {
         return (stone > 0 && kalahBoard.getCurrentPlayer() == player);
     }
 
+    /**
+     *
+     * @param kalahBoard
+     * @param pitId subsequent pit, calculate opponent's adjascent from this pit, to capture stones
+     */
     private void captureOpponentPitStones(KalahBoard kalahBoard, int pitId) {
 
         int oppositePitId = 14 - pitId;

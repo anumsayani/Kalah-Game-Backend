@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ *
+ * @author afatima
+ * @desc   The class is used to transfer the data over controller,
+ * when a move is played on the kalah board.
+ */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class KalahBoardDTO {
 
@@ -21,6 +28,11 @@ public class KalahBoardDTO {
     @Setter
     private HashMap<Integer, Integer> status;
 
+    /**
+     *
+     * @param board
+     * @return KalahBoardDTO Data transfer object for the board
+     */
     public static KalahBoardDTO createDTO(KalahBoard board){
         KalahBoardDTO dto = new KalahBoardDTO();
         HashMap<Integer, Integer> statusMap = new HashMap<Integer, Integer>();
