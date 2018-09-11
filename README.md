@@ -41,13 +41,13 @@ $ java -jar target/KalahaGame-0.0.1-SNAPSHOT.jar
 Kalaha WebService
 ---
 
-- POST http://<host>:<port>/games
+- POST http://localhost:8080/games
 > Creates a game board, and returns the boardID with Game board URL
 
-- GET http://<host>:<port>/games/{boardId}
-> Returns board ID 
+- GET http://localhost:8080/games/{boardId}
+> Returns Game board status
 
-- PUT http://<host>:<port>/games/{boardId}/pits/{pitId}
+- PUT http://localhost:8080/games/{boardId}/pits/{pitId}
 > Take a turn from the respective pit
 
 
