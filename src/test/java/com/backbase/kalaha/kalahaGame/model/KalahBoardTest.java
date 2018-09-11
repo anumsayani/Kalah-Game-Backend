@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class KalahBoardTest {
 
     @Test
-    public void createNewKalahBoardWithSuccess() throws Exception {
+    public void whenCreateBoard_VerifyBoardState() throws Exception {
         KalahBoard kalahBoard = this.createBoard();
 
         assertNotNull(kalahBoard.getBoardId());

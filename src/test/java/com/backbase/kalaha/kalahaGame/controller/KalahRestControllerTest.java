@@ -33,9 +33,10 @@ public class KalahRestControllerTest {
     private KalahBoardService kalahGameService;
 
     @Test
-    public void createBoardResourceWithSuccess() throws Exception{
+    public void whenCreateBoard_verifyBoardId() throws Exception{
         KalahBoard board = new KalahBoard();
         Mockito.when(kalahGameService.createBoard()).thenReturn(board);
+
         mvc.perform(post("/games"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.boardId").value(board.getBoardId()))
@@ -44,7 +45,7 @@ public class KalahRestControllerTest {
     }
 
     @Test
-    public void findBoardByIdWithSuccess() throws Exception{
+    public void whenFindByBoardId_VerifyBoard() throws Exception{
         KalahBoard board = new KalahBoard();
         String json = "{\"boardId\": \" %s \"}";
         json = String.format(json, board.getBoardId());
@@ -58,7 +59,7 @@ public class KalahRestControllerTest {
     }
 
     @Test
-    public void movePitWithSuccess() throws Exception{
+    public void whenMoveStone_verifyUpdatedStatus() throws Exception{
         KalahBoard board = new KalahBoard();
         Player player1 = new Player(Player.Name.FIRST_PLAYER);
         Player player2 = new Player(Player.Name.SECOND_PLAYER);
@@ -74,6 +75,7 @@ public class KalahRestControllerTest {
         Mockito.when(kalahGameService.move(board.getBoardId(), 1)).thenReturn(board);
         String json = "{\"boardId\":\"%s\",\"status\":{\"1\":0,\"2\":7,\"3\":7,\"4\":7,\"5\":7,\"6\":7,\"7\":1,\"8\":6,\"9\":6,\"10\":6,\"11\":6,\"12\":6,\"13\":6,\"14\":0},\"links\":[{\"rel\":\"uri\",\"href\":\"http://localhost/games/%s\"}]}";
         json = String.format(json, board.getBoardId(), board.getBoardId());
+
         mvc.perform(put("/games/{boardId}/pits/{pitId}", board.getBoardId(), 1))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))

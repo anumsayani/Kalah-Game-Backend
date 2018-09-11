@@ -18,7 +18,7 @@ public class KalahBoardRepositoryImplTest {
 
 
     @Test
-    public void saveKalahBoardWithSuccess(){
+    public void whenCreateBoard_verifyBoardInRepository(){
         KalahBoardRepository boardRepository = new KalahBoardRepositoryImpl();
 
         KalahBoard board = new KalahBoard();

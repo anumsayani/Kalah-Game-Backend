@@ -15,7 +15,7 @@ public class PitTest {
 
 
     @Test
-    public void initializePitWithSuccess() throws Exception {
+    public void whenInitializePit_verifyStonesInPit() throws Exception {
         Pit pitOne = new Pit(1, Player.STONES_PER_PIT);
         Pit pitTwo = new Pit(2, Player.STONES_PER_PIT);
 

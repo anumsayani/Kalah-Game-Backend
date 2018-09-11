@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
 public class PlayerTest {
 
     @Test
-    public void createNewPlayerWithSuccess() throws Exception {
+    public void whenCreateNewPlayer_verifyPlayerState() throws Exception {
         Player firstPlayer = new Player(Player.Name.FIRST_PLAYER);
         Player secondPlayer = new Player(Player.Name.SECOND_PLAYER);
 
@@ -33,7 +33,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void getPitByIdWithSuccess() throws Exception{
+    public void whenGetPits_verifyPlayerPits() throws Exception{
         Player firstPlayer = new Player(Player.Name.FIRST_PLAYER);
         Player secondPlayer = new Player(Player.Name.SECOND_PLAYER);
 
@@ -45,7 +45,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void assignKalahIdWithSuccess() throws Exception{
+    public void whenAssignKalahId_verifyCorrectKalahIds() throws Exception{
         Player firstPlayer = new Player(Player.Name.FIRST_PLAYER);
         Player secondPlayer = new Player(Player.Name.SECOND_PLAYER);
 
